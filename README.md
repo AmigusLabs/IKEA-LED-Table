@@ -1,4 +1,4 @@
-# IKEA-LED-Table
+IKEA-LED-Table
 =======
 
 Interactive IKEA LED Table based on Arduino 
