@@ -9,8 +9,9 @@
 #include <SoftwareSerial.h>
 //LED field size
 #define  FIELD_WIDTH       10
-#define  FIELD_HEIGHT      10
-#define  ORIENTATION_HORIZONTAL //Rotation of table, uncomment to rotate field 90 degrees
+#define  FIELD_HEIGHT      20
+// #define  MIRROR_X 
+// #define  MIRROR_Y 
 
 #define USE_FAST_LED   // FAST_LED as library to control the LED strips
 
@@ -85,6 +86,7 @@ void readInput(){
     } 
 }
 
+void testAllPixeles();
 
 /*
  * FAST_LED implementation 
@@ -127,32 +129,31 @@ void showPixels(){
 
 
 void setTablePixel(int x, int y, int color){
-  #ifdef ORIENTATION_HORIZONTAL
-  setPixel(y%2 ? y*FIELD_WIDTH + x : y*FIELD_WIDTH + ((FIELD_HEIGHT-1)-x),color);
-    #ifdef USE_CONSOLE_OUTPUT
-      setTablePixelConsole(y,x,color);
-    #endif
-  #else
-  setPixel(x%2 ? x*FIELD_WIDTH + ((FIELD_HEIGHT-1)-y) : x*FIELD_WIDTH + y,color);
-    #ifdef USE_CONSOLE_OUTPUT
-      setTablePixelConsole(x,y,color);
-    #endif
+#ifdef MIRROR_X
+  x = (FIELD_WIDTH-1)-x;
+#endif
+#ifdef MIRROR_Y
+  y = (FIELD_HEIGHT-1)-y;
+#endif
+  setPixel(y*FIELD_WIDTH + (y%2 ? ((FIELD_WIDTH-1)-x) : x),color);
+  #ifdef USE_CONSOLE_OUTPUT
+    setTablePixelConsole(x,y,color);
   #endif
 }
 
 void setTablePixelRGB(int x, int y, int r,int g, int b){
-  #ifdef ORIENTATION_HORIZONTAL
-  setPixelRGB(y%2 ? y*FIELD_WIDTH + x : y*FIELD_WIDTH + ((FIELD_HEIGHT-1)-x),r,g,b);
-    #ifdef USE_CONSOLE_OUTPUT
-      setTablePixelConsole(y,x,color);
-    #endif
-  #else
-  setPixelRGB(x%2 ? x*FIELD_WIDTH + ((FIELD_HEIGHT-1)-y) : x*FIELD_WIDTH + y,r,g,b);
-    #ifdef USE_CONSOLE_OUTPUT
-      setTablePixelConsole(x,y,color);
-    #endif
+#ifdef MIRROR_X
+  x = (FIELD_WIDTH-1)-x;
+#endif
+#ifdef MIRROR_Y
+  y = (FIELD_HEIGHT-1)-y;
+#endif
+  setPixelRGB(y*FIELD_WIDTH + (y%2 ? ((FIELD_WIDTH-1)-x) : x),r,g,b);
+  #ifdef USE_CONSOLE_OUTPUT
+    setTablePixelConsole(x,y,color);
   #endif
 }
+
 void clearTablePixels(){
   for (int n=0; n<FIELD_WIDTH*FIELD_HEIGHT; n++){
     setPixel(n,0);
@@ -302,5 +303,16 @@ void setup(){
 }
 
 void loop(){
+}
+
+void testAllPixeles() {
+     for (int x=0; x<FIELD_WIDTH; x++) {
+    for (int y=0; y<FIELD_HEIGHT; y++) {
+      setTablePixel(x, y, RED);
+        showPixels();
+      delay(50);
+      setTablePixel(x, y, WHITE);
+    }
+  }
 }
 

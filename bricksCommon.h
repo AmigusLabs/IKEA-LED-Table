@@ -9,7 +9,7 @@ float ballX = 10;
 float ballY = 6;
 float xincrement = 1;
 float yincrement = 1;
-int rad = 1;
+int rad = 0;
 int scorePlayer = 0;
 int blockWidth = 1;
 int blockHeight = 1;
@@ -57,7 +57,7 @@ char bricks[30][3] = {
    {1,9,2}  
 };
 /* Block shape */
-static uint8_t brick[] PROGMEM = {
+static const uint8_t brick[] PROGMEM = {
   10,
   8,
   0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF};

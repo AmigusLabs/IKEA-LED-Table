@@ -44,7 +44,7 @@ void runBricks(){
     
     // Draw player paddle
     for (int x=positionPlayer-PLAYER_HEIGHT/2; x<=positionPlayer+PLAYER_HEIGHT/2; ++x){
-      setTablePixel(x, FIELD_WIDTH-1, BLUE);
+      setTablePixel(x, FIELD_HEIGHT-1, BLUE);
     }
     // Draw bricks
     for (int i=0; i<numBlocks; i++){
@@ -104,20 +104,20 @@ void checkBallHitByPaddle() {
     if(ballX == positionPlayer)
     {
       yincrement = -1;
-      ballY = FIELD_WIDTH-2;
+      ballY = FIELD_HEIGHT-2;
     } 
     else if(ballX < positionPlayer && ballX >= positionPlayer - PLAYER_HEIGHT / 2) 
     {
       yincrement = -1;
       xincrement = max(-1,xincrement-1); 
-      ballY = FIELD_WIDTH-2;
+      ballY = FIELD_HEIGHT-2;
       ballX = positionPlayer - PLAYER_HEIGHT / 2-1;
     }    
     else if(ballX > positionPlayer && ballX <= positionPlayer + (PLAYER_HEIGHT-1) / 2) 
     {
       yincrement = -1;
       xincrement = min(1,xincrement+1); 
-      ballY = FIELD_WIDTH-2;
+      ballY = FIELD_HEIGHT-2;
       ballX = positionPlayer + (PLAYER_HEIGHT-1) / 2+1;
     }    
   } 
@@ -159,6 +159,7 @@ boolean checkBlockCollision(){
         if(bricks[i][0] == 1){                                          // If the block hasn't been eliminated
          int blockX = bricks[i][1];                                     // Grab x and y location
          int blockY = bricks[i][2];
+         // FIXME: hit the block with minimun distance
          if(ballBottom >= blockY && ballTop <= blockY+blockHeight){     // If hitting BLOCK
            if(ballRight >= blockX && ballLeft <= blockX+blockWidth){       
              removeBlock(i);                                            // Mark the block as out of play
