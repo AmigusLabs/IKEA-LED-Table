@@ -11,6 +11,12 @@ uint16_t nbRowsTotal;
 
 boolean tetrisGameOver;
 
+void tetrisPrintLines() {
+  char buf[16];
+  sprintf(buf, "Lineas:%3d", nbRowsTotal);
+  printTextToScreen(buf);
+}
+
 void tetrisInit(){
   clearField();
   brickSpeed = INIT_SPEED;
@@ -19,6 +25,7 @@ void tetrisInit(){
   tetrisGameOver = false;
   
   newActiveBrick();
+  tetrisPrintLines();
 }
 
 boolean tetrisRunning = false;
@@ -117,7 +124,6 @@ void printField(){
 /* *** Game functions *** */
 
 void newActiveBrick(){
-//  uint8_t selectedBrick = 3;
   uint8_t selectedBrick = random(7);
   uint8_t selectedColor = selectedBrick;
 
@@ -338,6 +344,8 @@ void checkFullLines(){
       delay(100);
       
       nbRowsThisLevel++; nbRowsTotal++;
+      tetrisPrintLines();
+      
       if (nbRowsThisLevel >= LEVELUP){
         nbRowsThisLevel = 0;
         brickSpeed = brickSpeed - SPEED_STEP;
