@@ -6,12 +6,16 @@
  * Main file with common methods and defines, such as button reading from Bluetooth controller
  * or setting pixels on the LED area
  */
+#include <SPI.h>
+#include <Adafruit_GFX.h>
+#include <Max72xxPanel.h>
+
 #include <SoftwareSerial.h>
 //LED field size
 #define  FIELD_WIDTH       10
 #define  FIELD_HEIGHT      20
-// #define  MIRROR_X 
-// #define  MIRROR_Y 
+#define  MIRROR_X 
+#define  MIRROR_Y 
 
 #define USE_FAST_LED   // FAST_LED as library to control the LED strips
 
@@ -289,6 +293,7 @@ void testMatrix() {
     delay(2000);
     setTablePixel(9, 9, WHITE);
 }
+
 void setup(){
   Serial.begin(115200);
   //Wait for serial port to connect
@@ -297,9 +302,11 @@ void setup(){
   initPixels();
   showPixels();
 
-
   //Init random number generator
-  randomSeed(millis());
+  //randomSeed(millis());
+  randomSeed(analogRead(0));
+
+  setupScreen();
 
   mainLoop();
 }
@@ -308,7 +315,7 @@ void loop(){
 }
 
 void testAllPixeles() {
-     for (int x=0; x<FIELD_WIDTH; x++) {
+  for (int x=0; x<FIELD_WIDTH; x++) {
     for (int y=0; y<FIELD_HEIGHT; y++) {
       setTablePixel(x, y, RED);
         showPixels();
