@@ -362,7 +362,7 @@ void clearField(){
   }
 }
 
-void scrollTextBlocked(char* text, int textLength, int color){
+void scrollTextBlocked(char* text, int textLength, uint32_t color){
   unsigned long prevUpdateTime = 0;
   Serial.println(-textLength);
   

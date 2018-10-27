@@ -103,8 +103,7 @@ void initPixels(){
 
 }
 
-void setPixel(int n, int color){
-
+void setPixel(int n, uint32_t color){
   leds[n] = CRGB(color);
 }
 
@@ -128,7 +127,7 @@ void showPixels(){
 
 
 
-void setTablePixel(int x, int y, int color){
+void setTablePixel(int x, int y, uint32_t color){
 #ifdef MIRROR_X
   x = (FIELD_WIDTH-1)-x;
 #endif
@@ -164,7 +163,7 @@ void clearTablePixels(){
 #include "font.h"
 uint8_t charBuffer[8][8];
 
-void printText(char* text, unsigned int textLength, int xoffset, int yoffset, int color){
+void printText(char* text, unsigned int textLength, int xoffset, int yoffset, uint32_t color){
   uint8_t curLetterWidth = 0;
   int curX = xoffset;
   clearTablePixels();
