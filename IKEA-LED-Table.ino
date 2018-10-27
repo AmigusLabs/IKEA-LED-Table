@@ -31,14 +31,17 @@
 #define  NUM_PIXELS    FIELD_WIDTH*FIELD_HEIGHT
 
 /* *** LED color table *** */
+#define  RED    0xFF0000
 #define  GREEN  0x00FF00
-#define  RED    0xFF00FF
 #define  BLUE   0x0000FF
 #define  YELLOW 0xFFFF00
 #define  LBLUE  0x00FFFF
+#define  TEAL   0x008080
 #define  PURPLE 0xFF00FF
 #define  WHITE  0XFFFFFF
-unsigned int colorLib[3] = {YELLOW, BLUE, WHITE};
+#define  BROWN  0XA52A2A
+#define  ORANGE  0XFFA500
+uint32_t colorLib[7] = {BLUE, RED, PURPLE, WHITE, ORANGE, TEAL, GREEN};
 /* *** Game commonly used defines ** */
 #define  DIR_UP    1
 #define  DIR_DOWN  2

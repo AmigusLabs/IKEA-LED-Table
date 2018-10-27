@@ -119,7 +119,7 @@ void printField(){
 void newActiveBrick(){
 //  uint8_t selectedBrick = 3;
   uint8_t selectedBrick = random(7);
-  uint8_t selectedColor = random(3);
+  uint8_t selectedColor = selectedBrick;
 
   //Set properties of brick
   activeBrick.siz = brickLib[selectedBrick].siz;
