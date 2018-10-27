@@ -57,6 +57,7 @@ void mainLoop(void){
         curSelectionTextLength = 8;
         break; 
     }
+    printTextToScreen(&(curSelectionText[2]));
     
     boolean selectionChanged = false;
     boolean runSelection = false;
