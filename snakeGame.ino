@@ -5,6 +5,13 @@
  * Snake game
  */
 
+
+void snakePrintPoints() {
+  char buf[16];
+  sprintf(buf, "Puntos:%3d", score);
+  printTextToScreen(buf);
+}
+
 void snakeInit(){
   //Snake start position and direction & initialise variables
   curLength = 3;
@@ -17,6 +24,7 @@ void snakeInit(){
   ay = random(FIELD_HEIGHT-1);
   
   snakeGameOver = false;
+  snakePrintPoints();
 }
 
 void runSnake(){
@@ -42,8 +50,9 @@ void runSnake(){
     //Check collision of snake head with apple
     if (collide(xs[0], ax, ys[0], ay, SNAKEWIDTH, SNAKEWIDTH, SNAKEWIDTH, SNAKEWIDTH)){
       //Increase score and snake length;
-      score = score +1;
-      curLength = curLength +1;
+      score++; curLength++;
+      snakePrintPoints();
+
       //Add snake segment with temporary position of new segments
       xs[curLength-1] = 255;
       ys[curLength-1] = 255;
@@ -96,11 +105,11 @@ void runSnake(){
     clearTablePixels();
    
     //Draw apple
-    setTablePixel(ax,ay,YELLOW);
+    setTablePixel(ax,ay,RED);
 
     //Draw snake
     for (int i=0; i<curLength; i++){
-      setTablePixel(xs[i], ys[i], WHITE);
+      setTablePixel(xs[i], ys[i], GREEN);
     }
     
     showPixels();
