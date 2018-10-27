@@ -77,14 +77,15 @@ void runDice() {
    }
 }
 
-void printDice(const boolean dice[][10]){
+void printDice(const boolean dice[][FIELD_WIDTH]){
   int x,y;
+  int margin = (FIELD_HEIGHT - FIELD_WIDTH) / 2; 
   for (x=0;x<FIELD_WIDTH;x++){
-    for (y=0;y<FIELD_HEIGHT;y++){
+    for (y=0;y<FIELD_WIDTH;y++){
       if (pgm_read_byte_near ( &dice[x][y]) == 1){
-        setTablePixel(y,x, YELLOW);
+        setTablePixel(y, x+margin, YELLOW);
       } else {
-        setTablePixel(y,x, 0x000000);
+        setTablePixel(y, x+margin, 0x000000);
       }
     }
   }
