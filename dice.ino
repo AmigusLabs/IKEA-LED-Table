@@ -15,7 +15,7 @@ boolean diceMath;
 void initDice() {
   diceRunning = true;
   diceMath = false;
-  randomSeed(analogRead(0));
+  randomSeed(analogRead(A0));
   // Clear pixels
   for (int i = 0; i < FIELD_WIDTH * FIELD_HEIGHT; i++)
     setPixel(i, 0);

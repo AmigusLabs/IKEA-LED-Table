@@ -295,6 +295,8 @@ void testMatrix() {
 }
 
 void setup(){
+  pinMode(A0, INPUT);
+  
   Serial.begin(115200);
   //Wait for serial port to connect
   bluetooth.begin(BLUETOOTH_SPEED);
@@ -304,7 +306,7 @@ void setup(){
 
   //Init random number generator
   //randomSeed(millis());
-  randomSeed(analogRead(0));
+  randomSeed(analogRead(A0));
 
   setupScreen();
 

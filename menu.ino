@@ -17,6 +17,9 @@ void mainLoop(void){
   unsigned long prevUpdateTime = 0;
   
   while(true){
+
+    updateScreenIntensity();
+    
     //Show menu system and wait for input
     clearTablePixels();
     switch (curSelection){
@@ -68,6 +71,7 @@ void mainLoop(void){
       unsigned long curTime;
       do{
         readInput();
+        updateScreenIntensity();
         if (curControl != BTN_NONE){
           if (curControl == BTN_LEFT){
             curSelection--;
