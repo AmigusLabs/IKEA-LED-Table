@@ -69,7 +69,6 @@ void readInput(){
   if (bluetooth.available() > 0) {
     // read the incoming byte:
     uint8_t incomingByte = bluetooth.read();
-    Serial.println(incomingByte);
       switch(incomingByte){
         case 238:
           curControl = BTN_LEFT;
@@ -196,6 +195,61 @@ void printText(char* text, unsigned int textLength, int xoffset, int yoffset, ui
   showPixels();
 }
 
+
+void printMenuGraphic(const uint8_t firstDigit[], const uint8_t secondDigit[], const uint8_t graphic[]) {
+  clearTablePixels();
+
+  for (int i=0; i<5; i++) {
+    uint8_t currentByte = firstDigit[i];
+    for(byte j=0; j<8; j++) {
+      uint8_t currentBit = (currentByte>>(7-j)) & 1;
+      int pixel = i*8+j;
+      if (pixel >= 35) {
+        continue;
+      } 
+      int x = pixel%5;
+      int y = pixel/5;
+      if (currentBit) {
+        setTablePixel(x, y, GREEN);
+      }
+    }
+  }
+
+  for (int i=0; i<5; i++) {
+    uint8_t currentByte = secondDigit[i];
+    for(byte j=0; j<8; j++) {
+      uint8_t currentBit = (currentByte>>(7-j)) & 1;
+      int pixel = i*8+j;
+      if (pixel >= 35) {
+        continue;
+      } 
+      int x = 5 + pixel%5;
+      int y = pixel/5;
+      if (currentBit) {
+        setTablePixel(x, y, GREEN);
+      }
+    }
+  }
+
+  
+  for (int i=0; i<17; i++) {
+    uint8_t currentByte = graphic[i];
+    for(byte j=0; j<8; j++) {
+      uint8_t currentBit = (currentByte>>(7-j)) & 1;
+      int pixel = i*8+j;
+      if (pixel >= 200) {
+        continue;
+      } 
+      int x = pixel%10;
+      int y = 7+pixel/10;
+      if (currentBit) {
+        setTablePixel(x, y, GREEN);
+      }
+    }
+  }
+  showPixels();
+}
+
 //Load char in buffer and return width in pixels
 uint8_t loadCharInBuffer(char letter){
   uint8_t* tmpCharPix;
@@ -307,7 +361,6 @@ void setup(){
   randomSeed(analogRead(0));
 
   setupScreen();
-
   mainLoop();
 }
 
