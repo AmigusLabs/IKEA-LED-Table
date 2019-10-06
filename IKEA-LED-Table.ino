@@ -69,23 +69,23 @@ void readInput(){
   if (bluetooth.available() > 0) {
     // read the incoming byte:
     uint8_t incomingByte = bluetooth.read();
-      switch(incomingByte){
-        case 238:
+    switch(incomingByte){
+        case 254:
           curControl = BTN_LEFT;
           break;
-        case 239:
+        case 255:
           curControl = BTN_RIGHT;
           break;
-        case 236:
+        case 252:
           curControl = BTN_UP;
           break;
-        case 237:
+        case 253:
           curControl = BTN_DOWN;
           break;
-        case 224:
+        case 240:
           curControl = BTN_START;
           break;
-        case 225:
+        case 241:
           curControl = BTN_EXIT;
           break;
       }

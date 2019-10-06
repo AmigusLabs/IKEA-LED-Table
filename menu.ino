@@ -39,8 +39,11 @@ void mainLoop(void){
   char* curSelectionText;
   int curSelectionTextLength;
   unsigned long prevUpdateTime = 0;
-  
+  unsigned long curTime = millis();
+  unsigned long waitTime = millis();
+
   while(true){
+    waitTime = millis();
     //Show menu system and wait for input
     clearTablePixels();
     switch (curSelection){
@@ -81,10 +84,23 @@ void mainLoop(void){
         curSelectionTextLength = 8;
         break; 
     }
-    printTextToScreen(&(curSelectionText[2]));
+
+    
+    if ((waitTime - curTime)> 20000){
+      curSelection = 2;
+      curSelectionText = "2 Animation";
+      curSelectionTextLength = 11;
+      printTextToScreen(&(curSelectionText[2]));
+      runColorPalette();
+      curTime = millis();
+
+    }
     
     boolean selectionChanged = false;
     boolean runSelection = false;
+    printTextToScreen(&(curSelectionText[2]));
+
+
 
     byte firstDigit = curSelection/10;
     byte secondDigit = curSelection%10;
@@ -137,10 +153,11 @@ void mainLoop(void){
       if (selectionChanged || runSelection)
         break;
     }*/
-    
+
     //If we are here, it means a selection was changed or a game started, or user did nothing
     if (selectionChanged){
       //For now, do nothing
+      curTime = millis();
     } else if (runSelection){//Start selected game
       switch (curSelection){
         case 1:
